@@ -2,6 +2,7 @@ const inquirer = require('inquirer');
 const fs = require('fs').promises;
 const convertToClass = require('./utils/generateClasses')
 const { generateHTML } = require('./utils/generateHTML')
+const { validateId, validateName, validateEmail, validateOfficeNumber, validateGithub, validateSchool } = require('./utils/validateAnswers')
 
 const team = []
 
@@ -11,21 +12,33 @@ const promptUser = (employeeType) => {
       type: 'input',
       name: 'id',
       message: `Please enter the ${employeeType}'s ID.`,
+      validate:(answer) => {
+        return validateId(answer, team)
+      }
     },
     {
       type: 'input',
       name: 'name',
       message: `Please enter the ${employeeType}'s name.`,
+      validate: (answer) => {
+        return validateName(answer)
+      }
     },
     {
       type: 'input',
       name: 'email',
       message: `Please enter the ${employeeType}'s email address.`,
+      validate: (answer) => {
+        return validateEmail(answer)
+      }
     },
     {
       type: 'input',
       name: 'contextualProperty',
       message: `Please enter the ${employeeType}'s office number.`,
+      validate: (answer) => {
+        return validateOfficeNumber(answer)
+      },
       when() {
         return employeeType === 'manager'
       }
@@ -34,6 +47,9 @@ const promptUser = (employeeType) => {
       type: 'input',
       name: 'contextualProperty',
       message: `Please enter the ${employeeType}'s Github username.`,
+      validate: (answer) => {
+        return validateGithub(answer)
+      },
       when() {
         return employeeType === 'engineer'
       }
@@ -42,6 +58,9 @@ const promptUser = (employeeType) => {
       type: 'input',
       name: 'contextualProperty',
       message: `Please enter the ${employeeType}'s school.`,
+      validate: (answer) => {
+        return validateSchool(answer)
+      },
       when() {
         return employeeType === 'intern'
       }
@@ -51,9 +70,9 @@ const promptUser = (employeeType) => {
       name: 'addTeamMember',
       message: 'Would you like to add another team member?',
       choices: [
-        'Add an Engineer',
-        'Add an Intern',
-        'Finish building team'
+        'Add an Engineer.',
+        'Add an Intern.',
+        'Finish building team.'
       ]
     },
   ]).then(({ id, name, email, contextualProperty, addTeamMember }) => {
@@ -61,15 +80,15 @@ const promptUser = (employeeType) => {
     team.push(convertToClass(id, name, email, contextualProperty, employeeType))
    
     switch (addTeamMember) {
-      case 'Add an Engineer':
+      case 'Add an Engineer.':
         promptUser('engineer')
         break;
 
-      case 'Add an Intern':
+      case 'Add an Intern.':
         promptUser('intern')
         break;
 
-      case 'Finish building team':
+      case 'Finish building team.':
         writeToFile()
         return;
     }
