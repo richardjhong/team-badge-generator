@@ -13,13 +13,13 @@ const promptUser = (employeeType) => {
   return inquirer.prompt([
     {
       type: 'input',
-      name: 'name',
-      message: `Please enter the ${employeeType}'s name.`,
+      name: 'id',
+      message: `Please enter the ${employeeType}'s ID.`,
     },
     {
       type: 'input',
-      name: 'id',
-      message: `Please enter the ${employeeType}'s ID.`,
+      name: 'name',
+      message: `Please enter the ${employeeType}'s name.`,
     },
     {
       type: 'input',
@@ -60,30 +60,13 @@ const promptUser = (employeeType) => {
         'Finish building team'
       ]
     },
-  ]).then(({ name, id, email, officeNumber, github, school, addTeamMember }) => {
-    const employeeTemplate = {
-      name,
-      id,
-      email
-    }
-
+  ]).then(({ id, name, email, officeNumber, github, school, addTeamMember }) => {
     if (employeeType === 'manager') {
-      team.manager = {
-        ...employeeTemplate,
-        officeNumber
-      }
+      team.manager = convertToClass(id, name, email, officeNumber, 'Manager')
     } else if (employeeType === 'engineer') {
-      const newEngineer = {
-        ...employeeTemplate,
-        github
-      }
-      team.engineers.push(newEngineer)
+      team.engineers.push(convertToClass(id, name, email, github, 'Engineer'))
     } else if (employeeType === 'intern') {
-      const newIntern = {
-        ...employeeTemplate,
-        school
-      }
-      team.interns.push(newIntern)
+      team.interns.push(convertToClass(id, name, email, school, 'Intern'))
     }
 
     switch (addTeamMember) {
