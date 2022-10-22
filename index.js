@@ -3,11 +3,7 @@ const fs = require('fs');
 const convertToClass = require('./utils/generateClasses')
 const generateHTML = require('./utils/generateHTML')
 
-const team = {
-  manager: "",
-  engineers: [],
-  interns: []
-}
+const team = []
 
 const promptUser = (employeeType) => {
   return inquirer.prompt([
@@ -28,7 +24,7 @@ const promptUser = (employeeType) => {
     },
     {
       type: 'input',
-      name: 'officeNumber',
+      name: 'contextualProperty',
       message: `Please enter the ${employeeType}'s office number.`,
       when() {
         return employeeType === 'manager'
@@ -36,7 +32,7 @@ const promptUser = (employeeType) => {
     },
     {
       type: 'input',
-      name: 'github',
+      name: 'contextualProperty',
       message: `Please enter the ${employeeType}'s Github username.`,
       when() {
         return employeeType === 'engineer'
@@ -44,7 +40,7 @@ const promptUser = (employeeType) => {
     },
     {
       type: 'input',
-      name: 'school',
+      name: 'contextualProperty',
       message: `Please enter the ${employeeType}'s school.`,
       when() {
         return employeeType === 'intern'
@@ -60,15 +56,10 @@ const promptUser = (employeeType) => {
         'Finish building team'
       ]
     },
-  ]).then(({ id, name, email, officeNumber, github, school, addTeamMember }) => {
-    if (employeeType === 'manager') {
-      team.manager = convertToClass(id, name, email, officeNumber, 'Manager')
-    } else if (employeeType === 'engineer') {
-      team.engineers.push(convertToClass(id, name, email, github, 'Engineer'))
-    } else if (employeeType === 'intern') {
-      team.interns.push(convertToClass(id, name, email, school, 'Intern'))
-    }
-
+  ]).then(({ id, name, email, contextualProperty, addTeamMember }) => {
+  
+    team.push(convertToClass(id, name, email, contextualProperty, employeeType))
+   
     switch (addTeamMember) {
       case 'Add an Engineer':
         promptUser('engineer')
