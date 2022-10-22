@@ -85,22 +85,6 @@ const promptUser = (employeeType) => {
   })
 };
 
-const generateEngineerCards = (engineers) => {
-  console.log('here be the engineers: ', engineers)
-  if (engineers.length !== 0) {
-    engineers.forEach(engineer => {
-      console.log('each engineer name: ', engineer.name)
-      return (
-        `
-          <p>${engineer.name}</p>
-        `
-      )
-    })
-  } else {
-    return
-  }
-}
-
 const writeToFile = () => {
   fs.writeFile(`./dist/index.html`, generateHTML(team), (err) => {
     err ? console.err(err) : console.log(`Responses saved to index.html`)
