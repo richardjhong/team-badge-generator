@@ -89,6 +89,7 @@ const promptUser = (employeeType) => {
         break;
 
       case 'Finish building team.':
+        console.log('Here\'s the full team: ', team)
         writeToFile()
         return;
     }
