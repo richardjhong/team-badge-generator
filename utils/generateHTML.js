@@ -5,7 +5,7 @@ const generateHTML = (data) => {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./style.css"/>
     <title>Team Badges</title>
     </head>
     <body>
@@ -16,50 +16,49 @@ const generateHTML = (data) => {
     </div>
     <main>
       <div class="d-flex justify-content-around" id="badge-container">
-        ${insert(data)}
+        ${
+          data.map((profile) => {
+            return createCard(profile)
+          }).join('')
+        }
       </div>
     </main>
   </body>
   </html>`;
 }
 
-const createCard = () => {
+const createCard = (datum) => {
   return ` <div class="card" style="width: 18rem;">
-          <img class="card-img-top" src="..." alt="Card image cap">
           <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <h5 class="card-title">${datum.getName()}</h5>
+            <h6 class="employee-title">${datum.getRole()}</h6>
           </div>
           <ul class="list-group list-group-flush">
-            <li class="list-group-item">Cras justo odio</li>
-            <li class="list-group-item">Dapibus ac facilisis in</li>
-            <li class="list-group-item">Vestibulum at eros</li>
+            <li class="list-group-item">ID: ${datum.getId()}</li>
+            <li class="list-group-item">Email: 
+            <a href = "mailto: ${datum.getEmail()}">
+              ${datum.getEmail()}
+            </a>
+            </li>
+            ${renderContextualProperty(datum)}
           </ul>
-          <div class="card-body">
-            <a href="#" class="card-link">Card link</a>
-            <a href="#" class="card-link">Another link</a>
-          </div>
-        </div>`
+        </div>
+      `
 }
 
-// const badge = document.createElement('card')
-// badge.setAttribute('class', 'card p-3 my-3');
+const renderContextualProperty = (datum) => {
+  const employeeType = datum.constructor.name
+  switch (employeeType) {
+    case 'Manager':
+      return `<li class="list-group-item office-number-list-item">Office number: ${datum.getOfficeNumber()}</li>`
 
-const insert = (data) => {
+    case 'Engineer':
+      return `<li class="list-group-item github-list-item">Github: <a href="https://github.com/${datum.getGithub()}" class="github-link">${datum.getGithub()}</a></li>`
 
-  console.log('does this work? ', data)
-  data.forEach(datum => {
-    // console.log('datum class name: ', datum.constructor.name)
-    console.log('datum class name: ', datum.constructor.name)
-
-  })
-
-  const badge = createCard()
-  return badge
-
+    case 'Intern':
+      return `<li class="list-group-item intern-list-item">School: ${datum.getSchool()}</li>`
+  }
 }
-  
-
 
 module.exports = {
   generateHTML,

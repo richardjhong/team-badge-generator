@@ -71,7 +71,7 @@ const promptUser = (employeeType) => {
 
       case 'Finish building team':
         writeToFile()
-        return ;
+        return;
     }
   })
 };
