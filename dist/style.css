@@ -2,3 +2,14 @@
   background-color: #E84755;
   color: white;
 }
+
+.card {
+  display: flex;
+  flex-direction: column;
+}
+
+.badge-header {
+  background-color: #0377F7;
+  color: white;
+
+}

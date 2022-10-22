@@ -1,7 +1,7 @@
 const inquirer = require('inquirer');
-const fs = require('fs');
+const fs = require('fs').promises;
 const convertToClass = require('./utils/generateClasses')
-const generateHTML = require('./utils/generateHTML')
+const { generateHTML } = require('./utils/generateHTML')
 
 const team = []
 
@@ -51,8 +51,8 @@ const promptUser = (employeeType) => {
       name: 'addTeamMember',
       message: 'Would you like to add another team member?',
       choices: [
-        'Add an Intern',
         'Add an Engineer',
+        'Add an Intern',
         'Finish building team'
       ]
     },
@@ -76,10 +76,10 @@ const promptUser = (employeeType) => {
   })
 };
 
-const writeToFile = () => {
-  fs.writeFile(`./dist/index.html`, generateHTML(team), (err) => {
-    err ? console.err(err) : console.log(`Responses saved to index.html`)
-  })
+const writeToFile = async () => {
+  await fs.writeFile('./dist/index.html', generateHTML(team));
 }
 
 promptUser('manager');
+
+
