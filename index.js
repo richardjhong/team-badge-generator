@@ -107,6 +107,8 @@ const writeToFile = async () => {
   await fs.writeFile('./dist/index.html', generateHTML(team));
 }
 
+// since the manager is the first person added to a team, promptUser initiates 
+// with manager as the employeeType
 promptUser('manager');
 
 
