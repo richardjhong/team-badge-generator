@@ -41,7 +41,6 @@ Afterwards check towards the bottom within package.json; the user should see inq
 ## Usage
 After installing inquirer and jest, the user should run the following commands within the terminal:
 ```
-cd assets/js
 node index.js
 ```
 The CLI will ask a series of questions to grab which team member badges to dynamically load into the index.html file within ./dist once the user ends the dialog via selecting 'Finish building team'.
