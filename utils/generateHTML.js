@@ -1,3 +1,5 @@
+// creates mostly boilerplate HTML with each badge profile being 
+// injected via mapping each data profile and creating a card
 const generateHTML = (data) => {
   return `<!DOCTYPE html>
   <html lang="en">
@@ -5,6 +7,7 @@ const generateHTML = (data) => {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/0fe3899c2e.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./style.css"/>
     <title>Team Badges</title>
     </head>
@@ -15,7 +18,7 @@ const generateHTML = (data) => {
       </div>
     </div>
     <main>
-      <div class="d-flex justify-content-around" id="badge-container">
+      <div class="d-flex justify-content-around row no-gutters" id="badge-container">
         ${
           data.map((profile) => {
             return createCard(profile)
@@ -27,11 +30,13 @@ const generateHTML = (data) => {
   </html>`;
 }
 
+// creates boilerplate for each card with renderContextualProperty allowing 
+// for flexibility given the employeeType for the last li element
 const createCard = (datum) => {
-  return ` <div class="card" style="width: 18rem;">
-          <div class="card-body">
-            <h5 class="card-title">${datum.getName()}</h5>
-            <h6 class="employee-title">${datum.getRole()}</h6>
+  return ` <div class="card col-3 mx-3 my-3" style="width: 18rem;">
+          <div class="card-body bg-primary text-white">
+            <h2 class="card-title">${datum.getName()}</h2>
+            <h5 class="employee-title">${datum.getRole()} ${renderEmployeeBadgeIcon(datum)}</h5>
           </div>
           <ul class="list-group list-group-flush">
             <li class="list-group-item">ID: ${datum.getId()}</li>
@@ -46,6 +51,23 @@ const createCard = (datum) => {
       `
 }
 
+// adds badge icons to the right of the employeeType within createCard
+const renderEmployeeBadgeIcon = (datum) => {
+  const employeeType = datum.constructor.name
+  switch (employeeType) {
+    case 'Manager':
+      return `<i class="fa-solid fa-mug-hot"></i>`
+
+    case 'Engineer':
+      return `<i class="fa-solid fa-code-branch"></i>`
+
+    case 'Intern':
+      return `<i class="fa-solid fa-user-graduate"></i>`
+  }
+}
+
+// adds contextual property to each badge based on the employeeType as the
+// third list item
 const renderContextualProperty = (datum) => {
   const employeeType = datum.constructor.name
   switch (employeeType) {

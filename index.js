@@ -6,6 +6,11 @@ const { validateId, validateName, validateEmail, validateOfficeNumber, validateG
 
 const team = []
 
+// the switch statement at the end of promptUser has two situations in which
+// to recursively call promptUser again: if the user chooses to add an Engineer
+// or to add an Intern
+// after selecting that the team is finished, the 'Finish building team.' case
+// invokes the writeToFile function.
 const promptUser = (employeeType) => {
   return inquirer.prompt([
     {
@@ -89,13 +94,15 @@ const promptUser = (employeeType) => {
         break;
 
       case 'Finish building team.':
-        console.log('Here\'s the full team: ', team)
         writeToFile()
         return;
     }
   })
 };
 
+// generateHTML is an exported function that creates HTML boilerplate and 
+// creates a badge for each of the employee Class instances 
+// that were pushed into the team array
 const writeToFile = async () => {
   await fs.writeFile('./dist/index.html', generateHTML(team));
 }

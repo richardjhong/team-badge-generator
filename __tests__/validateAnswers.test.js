@@ -104,6 +104,4 @@ describe("validateAnswers", () => {
       expect(validSchoolName).toEqual(true)
     });
   });
-
-
 });
