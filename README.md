@@ -4,6 +4,7 @@
 
 ![Team Badge Generator Demo gif](./assets/images/demo.gif)
 
+
 ## Description
 This app takes user input via the CLI and creates an index.html file with a badge for each team member based on the information given.
 
@@ -17,6 +18,7 @@ This app is built with [Node.js](https://nodejs.org/en/), Node.js' native [files
   - [Usage](#usage)
   - [Architecture](#architecture)
   - [Screenshot](#screenshot)
+  - [Video Demo](#demo)
   - [License](#license)
   - [Improvements](#improvements)
   - [Questions](#questions)
@@ -56,21 +58,23 @@ There are a total of 6 tests suites to run:
   * 1 for generateClasses functionality
   * 1 for validateAnswers functionality
 
+
 ## Architecture
 The code is split into four files: the main index.js at root level, generateHTML.js file within utils, generateClasses within utils, and validateAnswers within utils. 
-  * index.js acts as the portion of the app that grabs user input via Inquirer and the CLI. Within the switch statement of promptUser at the end, there are two cases in which promptUser recursively runs to continue the dialog for each additional team member that is added. Once the user selects the 'Finish build team' case, then writeToFile is invoked which informs the app the file path to save to as well as invokes the invokes the imported generateHTML function.
+  * index.js acts as the portion of the app that grabs user input via Inquirer. Within the switch statement of promptUser at the end, there are two cases in which promptUser recursively runs to continue the dialog for each additional team member that is added. Once the user selects the 'Finish build team' case, then writeToFile is invoked which informs the app the file path to save to as well as invokes the imported generateHTML function.
   * generateHTML takes the team data passed from index.js and generates boilerplate HTML code. It also invokes createCard to create a badge for each team member along with renderEmployeeBadgeIcon and renderContextualProperty for slight differences between badges based on the employeeType.
   * generateClasses takes the inquirer answers that are pushed into the team array and converts each item (essentially each employee's profile) into an instance of the appropriate Class for the employee.
   * validateAnswers provides the logic for validating the answer to each of the Inquirer prompt questions.
 
-For the unit testing, each of the Classes are stored within lib and the respective tests can be found within __tests__. generateClasses and validateAnswers within utils folder also have respective tests within __tests__.
+For the unit testing, each of the Classes are stored within lib and the respective tests can be found within tests folder. generateClasses and validateAnswers within utils folder also have respective tests within tests folder.
 
 
 ## Screenshot
 ![screenshot](./assets/images/screenshot.png)
 
-## Video Demo
-[Video demo link](https://drive.google.com/file/d/1B1N-L0JB6uhiJtRCiLQvVhd5MKfAmyiB/view)
+
+## Demo
+[Video demo](https://drive.google.com/file/d/1B1N-L0JB6uhiJtRCiLQvVhd5MKfAmyiB/view)
 
 
 ## License
