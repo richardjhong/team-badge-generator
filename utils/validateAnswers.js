@@ -28,7 +28,7 @@ const validateName = answer => {
 const validateEmail = answer => {
   const validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
-  if (!answer.match(validRegex)) {
+  if (!answer.match(validRegex) || answer.length === 0) {
     return 'Please insert a valid email address.'
   } else {
     return true;
@@ -36,9 +36,10 @@ const validateEmail = answer => {
 }
 
 // checks whether an office number string is at least one character
-// or does not have exclusively alphanumeric characters 
+// or does not have exclusively alphanumeric characters excluding space
+// delimiter between multiple words
 const validateOfficeNumber = answer => {
-  const validRegex = /^[A-Za-z0-9]/
+  const validRegex = /^[A-Za-z0-9\s]*$/
   if (!answer.match(validRegex) || answer.length === 0) {
     return 'Please enter a valid office number.'
   } else {
