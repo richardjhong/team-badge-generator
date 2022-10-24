@@ -7,3 +7,11 @@
   background-color: #0377F7;
   color: white;
 }
+
+.list-border {
+  border:1px solid #F6F7F9;
+}
+
+.card {
+  box-shadow: 0 0 10px 0 rgba(100, 100, 100, 0.26);
+}

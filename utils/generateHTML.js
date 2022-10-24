@@ -34,19 +34,21 @@ const generateHTML = (data) => {
 // for flexibility given the employeeType for the last li element
 const createCard = (datum) => {
   return ` <div class="card col-3 mx-3 my-3" style="width: 18rem;">
-          <div class="card-body bg-primary text-white">
+          <div class="card-header bg-primary text-white">
             <h2 class="card-title">${datum.getName()}</h2>
             <h5 class="employee-title">${datum.getRole()} ${renderEmployeeBadgeIcon(datum)}</h5>
           </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">ID: ${datum.getId()}</li>
-            <li class="list-group-item">Email: 
-            <a href = "mailto: ${datum.getEmail()}">
-              ${datum.getEmail()}
-            </a>
-            </li>
-            ${renderContextualProperty(datum)}
-          </ul>
+          <div class="card-body bg-light">
+            <ul class="list-group list-group-flush list-border">
+              <li class="list-group-item">ID: ${datum.getId()}</li>
+              <li class="list-group-item">Email: 
+              <a href = "mailto: ${datum.getEmail()}">
+                ${datum.getEmail()}
+              </a>
+              </li>
+              ${renderContextualProperty(datum)}
+            </ul>
+          </div>
         </div>
       `
 }
