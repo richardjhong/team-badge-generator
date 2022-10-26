@@ -55,7 +55,7 @@ const createCard = (datum) => {
 
 // adds badge icons to the right of the employeeType within createCard
 const renderEmployeeBadgeIcon = (datum) => {
-  const employeeType = datum.constructor.name
+  const employeeType = datum.getRole()
   switch (employeeType) {
     case 'Manager':
       return `<i class="fa-solid fa-mug-hot"></i>`
