@@ -36,7 +36,7 @@ const createCard = (datum) => {
   return ` <div class="card col-3 mx-3 my-3" style="width: 18rem;">
           <div class="card-header bg-primary text-white">
             <h2 class="card-title">${datum.getName()}</h2>
-            <h5 class="employee-title">${datum.getRole()} ${renderEmployeeBadgeIcon(datum)}</h5>
+            <h5 class="employee-title">${datum.getRole()} ${renderEmployeeBadgeIcon(datum.getRole())}</h5>
           </div>
           <div class="card-body bg-light">
             <ul class="list-group list-group-flush list-border">
@@ -54,8 +54,7 @@ const createCard = (datum) => {
 }
 
 // adds badge icons to the right of the employeeType within createCard
-const renderEmployeeBadgeIcon = (datum) => {
-  const employeeType = datum.getRole()
+const renderEmployeeBadgeIcon = (employeeType) => {
   switch (employeeType) {
     case 'Manager':
       return `<i class="fa-solid fa-mug-hot"></i>`
